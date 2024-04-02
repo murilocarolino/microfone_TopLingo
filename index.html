@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>teste</title>
+</head>
+
+<style>
+     .dark {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .light {
+            background-color: #fff;
+            color: #333;}
+</style>
+
+<body class="teste">
+    <button class="border-transparent	" onclick="toggleMicrophone()"><img src="./voz.svg" alt=""></button>
+
+    <script>
+        let isDarkTheme = false
+
+        function toggleTheme() {
+            if (isDarkTheme) {
+                document.body.className = 'light'
+                isDarkTheme = false
+            } else {
+                document.body.className = 'dark'
+                isDarkTheme = true
+            }
+        }
+
+        function toggleMicrophone() {
+            const recognition = new window.webkitSpeechRecognition || window.SpeechRecognition()
+            recognition.lang = 'pt-BR'
+
+            recognition.onresult = function (event) {
+                const transcript = event.results[0][0].transcript.trim().toLowerCase()
+
+                if (transcript.includes('alice')) {
+                    toggleTheme()
+                } else {
+                    console.log('Theme not recognized')
+                }
+            }
+
+            recognition.start()
+        }
+    </script>
+</body>
+
+</html>
